@@ -3,13 +3,17 @@
 $test_servaddr = '192.168.0.1'; //server address
 $test_servport = 10000; //port
 
-//socket:create→connect
-if(($test_sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false){ 
-  echo "socket_create() error:". socket_strerror(socket_last_error());
-}
 
-if((socket_connect($test_sock, $test_servaddr, $test_servport)) === false){
-  echo "socket_connect() error:".socket_strerror(socket_last_error());
+stream_set_blocking($test_sock, false);
+
+$test_readbuf = fread($test_sock, 2048);
+
+fwrite($test_sock, $test_writebuf, strlen($test_writebuf);
+
+//socket:create→connect
+$test_sock = stream_socket_client("tcp://$test_servaddr:$test_servport", $errno, $errstr);
+if(!$test_sock){
+  echo "$errstr ($errno)<br />\n";
 }
 
 
